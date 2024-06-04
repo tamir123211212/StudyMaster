@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <!-- מקצוע 1 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="12dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/eng"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="אנגלית"
+            android:textSize="18sp"
+            android:textColor="#000000" />
+
+        <ImageButton
+            android:id="@+id/engimg"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/eng"
+            android:layout_marginTop="4dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:background="?attr/selectableItemBackground"
+            />
+    </LinearLayout>
+
+    <!-- מקצוע 2 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="12dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/math"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="מתמטיקה"
+            android:textSize="18sp"
+            android:textColor="#000000" />
+
+        <ImageButton
+            android:id="@+id/mathimg"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/math"
+            android:layout_marginTop="4dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:background="?attr/selectableItemBackground"
+            />
+    </LinearLayout>
+
+    <!-- מקצוע 3 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="12dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/citizen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="אזרחות"
+            android:textSize="18sp"
+            android:textColor="#000000" />
+
+        <ImageButton
+            android:id="@+id/citizenimg"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/ezrah"
+            android:layout_marginTop="4dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:background="?attr/selectableItemBackground"
+            />
+    </LinearLayout>
+
+</LinearLayout>

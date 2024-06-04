@@ -1,0 +1,28 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+    <item
+        android:id="@+id/chat"
+        android:title="Notifications"
+        android:icon="@drawable/chat_svgrepo_com" />
+    <item
+        android:id="@+id/summaries"
+        android:title="summaries"
+        android:icon="@drawable/baseline_summarize_24" />
+    <item
+        android:id="@+id/home"
+        android:title="Home"
+        android:icon="@drawable/baseline_home_24" />
+    <item
+        android:id="@+id/dates"
+        android:title="dates"
+        android:icon="@drawable/baseline_calendar_month_24" />
+    <item
+        android:id="@+id/account"
+        android:title="Dashboard"
+        android:icon="@drawable/baseline_account_circle_24" />
+
+
+
+</menu>

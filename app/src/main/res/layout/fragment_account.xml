@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- ImageView לתמונת המשתמש -->
+    <ImageView
+        android:id="@+id/imageViewProfile"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/baseline_account_circle_24"
+        android:scaleType="centerCrop"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"/>
+
+
+
+    <!-- TextView לשם המשתמש -->
+    <TextView
+        android:id="@+id/textViewUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="שם המשתמש:"
+        android:textStyle="bold"
+        android:layout_below="@id/imageViewProfile"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"/>
+
+    <TextView
+        android:id="@+id/textViewUsernameValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_below="@id/textViewUsername"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"/>
+
+    <!-- TextView למגמה 1 -->
+    <TextView
+        android:id="@+id/textViewDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="מגמה 1:"
+        android:textStyle="bold"
+        android:layout_below="@id/textViewUsernameValue"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"/>
+
+    <TextView
+        android:id="@+id/textViewDescriptionValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_below="@id/textViewDescription"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"/>
+
+    <!-- TextView למגמה 2 -->
+    <TextView
+        android:id="@+id/textViewEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="מגמה 2:"
+        android:textStyle="bold"
+        android:layout_below="@id/textViewDescriptionValue"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"/>
+
+    <TextView
+        android:id="@+id/textViewValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_below="@id/textViewEmail"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"/>
+
+    <!-- TextView לכיתה -->
+    <TextView
+        android:id="@+id/textViewClass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="כיתה:"
+        android:textStyle="bold"
+        android:layout_below="@id/textViewValue"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"/>
+
+    <TextView
+        android:id="@+id/textViewClassValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_below="@id/textViewClass"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"/>
+
+    <!-- Button להתנתקות -->
+    <Button
+        android:id="@+id/buttonLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="התנתקות"
+        android:layout_below="@id/textViewClassValue"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:onClick="logout"/>
+    <Button
+        android:id="@+id/buttonChangeProfilePicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="החלפת תמונת פרופיל"
+        android:layout_toRightOf="@id/imageViewProfile"
+        android:layout_alignTop="@id/imageViewProfile"
+        android:layout_marginStart="10dp"
+        android:onClick="openFileChooser"/>
+
+</RelativeLayout>
