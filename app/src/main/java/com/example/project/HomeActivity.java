@@ -34,7 +34,6 @@ public class HomeActivity extends AppCompatActivity {
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation_view);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-        // בדיקה אם יש צורך להציג Fragment מסוים
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("fragment_to_load")) {
             String fragmentToLoad = intent.getStringExtra("fragment_to_load");
@@ -86,7 +85,7 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
                 startActivityForResult(intent, REQUEST_CODE_SCHEDULE_EXACT_ALARM);
             } else {
-                Log.d(TAG, "Can schedule exact alarms");
+                Log.d(TAG, "Exact alarm permission granted");
             }
         }
     }

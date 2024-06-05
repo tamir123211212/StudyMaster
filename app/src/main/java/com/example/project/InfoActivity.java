@@ -26,34 +26,29 @@ public class InfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
 
-        // Initialize Firebase database reference
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        // Initialize spinner
         spinnerClass = findViewById(R.id.spinnerClass);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.class_options, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerClass.setAdapter(adapter);
 
-        // Initialize EditText fields
         editTextUsername = findViewById(R.id.editTextUsername);
         editTextCourses1 = findViewById(R.id.editTextCourses1);
         editTextCourses2 = findViewById(R.id.editTextCourses2);
 
-        // Set listener for spinner item selection
         spinnerClass.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, android.view.View view, int position, long id) {
-                // Get the selected item from spinner
+
                 String selectedItem = parent.getItemAtPosition(position).toString();
 
-                // Save selected item to Firebase database
                 saveSelectedClass(selectedItem);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // Do nothing if nothing is selected
+
             }
         });
 
@@ -70,7 +65,6 @@ public class InfoActivity extends AppCompatActivity {
                 // Save user data to Firebase database
                 saveUserData(username, course1, course2);
 
-                // Redirect the user to the HomeActivity
                 Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                 startActivity(intent);
             }
@@ -78,18 +72,16 @@ public class InfoActivity extends AppCompatActivity {
     }
 
     private void saveSelectedClass(String selectedClass) {
-        // Get current user's unique ID
+        // Get current user's  ID
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        // Write selected class to Firebase Realtime Database under the user's ID
         databaseReference.child("users").child(userId).child("selectedClass").setValue(selectedClass);
     }
 
     private void saveUserData(String username, String course1, String course2) {
-        // Get current user's unique ID
+        // Get current user's  ID
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        // Write user data to Firebase Realtime Database under the user's ID
         DatabaseReference userRef = databaseReference.child("users").child(userId);
         userRef.child("username").setValue(username);
         userRef.child("course1").setValue(course1);

@@ -57,12 +57,10 @@ public class Signup extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // ההרשמה הצליחה, עכשיו ניתן להוסיף למסד הנתונים שלך את המשתמש
                             Toast.makeText(Signup.this, "ההרשמה הצליחה.", Toast.LENGTH_SHORT).show();
                             Intent i = new Intent(getApplicationContext(), InfoActivity.class);
                             startActivity(i);
                             String userId = mAuth.getCurrentUser().getUid();
-                            // אתה יכול לשמור אותו במסד הנתונים של Firebase או להשתמש בו כרצונך
                         } else {
                             // ההרשמה נכשלה
                             Toast.makeText(Signup.this, "ההרשמה נכשלה. " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
