@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
 
     <application
         android:allowBackup="true"
@@ -15,7 +16,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Project"
         tools:targetApi="31">
-
+        <activity
+            android:name=".Summaries.FullScreenImageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Chat.ChatDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Summaries.ImageViewActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Project" />
+        <activity
+            android:name=".Summaries.UserSummaryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Summaries.UploadSummaryActivity"
+            android:exported="false" />
         <activity
             android:name=".Summaries.ProfessionsActivity"
             android:exported="false" />
@@ -36,15 +52,19 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <receiver android:name=".Dates.AlarmReceiver" android:exported="true">
+        <receiver
+            android:name=".Dates.AlarmReceiver"
+            android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-                <action android:name="android.intent.action.RECEIVE_BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.RECEIVE_BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
     </application>
+
 </manifest>

@@ -18,7 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
     private EditText Etemail, Etpass;
-    private Button Btsignin , Btcreate;
+    private Button Btsignin, Btcreate;
     private FirebaseAuth mAuth;
 
     @Override
@@ -56,7 +56,18 @@ public class MainActivity extends AppCompatActivity {
         Btsignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signInUser(Etemail.getText().toString(), Etpass.getText().toString());
+                String email = Etemail.getText().toString().trim();
+                String password = Etpass.getText().toString().trim();
+
+                if (email.isEmpty()) {
+                    Etemail.setError("Email is required");
+                    Etemail.requestFocus();
+                } else if (password.isEmpty()) {
+                    Etpass.setError("Password is required");
+                    Etpass.requestFocus();
+                } else {
+                    signInUser(email, password);
+                }
             }
         });
     }

@@ -8,14 +8,18 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import Account.AccountFragment;
-import Chat.ChatFragment;
+
 import com.example.project.Dates.DatesFragment;
+import com.example.project.Home.HomeFragment;
 import com.example.project.Summaries.SummariesFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import com.example.project.Account.AccountFragment;
+import com.example.project.Chat.ChatFragment;
 
 public class HomeActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package Account;
+package com.example.project.Account;
 
 import android.content.Intent;
 import android.net.Uri;

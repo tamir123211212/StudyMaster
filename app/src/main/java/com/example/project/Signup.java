@@ -31,30 +31,43 @@ public class Signup extends AppCompatActivity {
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
         buttonSignup = findViewById(R.id.buttonSignup);
+
         buttonSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email = editTextEmail.getText().toString().trim();
                 String password = editTextPassword.getText().toString().trim();
 
-                mAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // ההרשמה הצליחה, עכשיו ניתן להוסיף למסד הנתונים שלך את המשתמש
-                                    Toast.makeText(Signup.this, "ההרשמה הצליחה.", Toast.LENGTH_SHORT).show();
-                                    Intent i = new Intent(getApplicationContext(), InfoActivity.class);
-                                    startActivity(i);
-                                    String userId = mAuth.getCurrentUser().getUid();
-                                    // אתה יכול לשמור אותו במסד הנתונים של Firebase או להשתמש בו כרצונך
-                                } else {
-                                    // ההרשמה נכשלה
-                                    Toast.makeText(Signup.this, "ההרשמה נכשלה. " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
+                if (email.isEmpty()) {
+                    editTextEmail.setError("Email is required");
+                    editTextEmail.requestFocus();
+                } else if (password.isEmpty()) {
+                    editTextPassword.setError("Password is required");
+                    editTextPassword.requestFocus();
+                } else {
+                    signUpUser(email, password);
+                }
             }
         });
+    }
+
+    private void signUpUser(String email, String password) {
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // ההרשמה הצליחה, עכשיו ניתן להוסיף למסד הנתונים שלך את המשתמש
+                            Toast.makeText(Signup.this, "ההרשמה הצליחה.", Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(getApplicationContext(), InfoActivity.class);
+                            startActivity(i);
+                            String userId = mAuth.getCurrentUser().getUid();
+                            // אתה יכול לשמור אותו במסד הנתונים של Firebase או להשתמש בו כרצונך
+                        } else {
+                            // ההרשמה נכשלה
+                            Toast.makeText(Signup.this, "ההרשמה נכשלה. " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 }

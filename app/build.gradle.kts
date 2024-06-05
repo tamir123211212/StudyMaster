@@ -23,15 +23,12 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
-buildFeatures{
 
-    viewBinding ; true
-
-}
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
     buildFeatures {
         viewBinding = true
     }
@@ -49,6 +46,7 @@ dependencies {
     implementation("com.google.firebase:firebase-database")
     implementation("com.google.firebase:firebase-storage")
     implementation("com.google.firebase:firebase-firestore")
+    implementation("com.squareup.picasso:picasso:2.71828")
 
     implementation("androidx.activity:activity:1.8.0")
     implementation("androidx.navigation:navigation-fragment:2.6.0")
