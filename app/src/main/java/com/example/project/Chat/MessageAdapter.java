@@ -17,7 +17,7 @@ import java.util.Locale;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder> {
 
-    private List<Message> messageList;
+    private final List<Message> messageList;
 
     public MessageAdapter(List<Message> messageList) {
         this.messageList = messageList;
@@ -37,22 +37,20 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         holder.textViewContent.setText(message.getContent());
         holder.textViewSenderName.setText(message.getSenderName());
 
-        // בדיקת ה-URL שנשלח ל-Glide
+        // Logging the URL being loaded by Glide
         Log.d("MessageAdapter", "Loading Image URL: " + message.getSenderProfileImage());
 
-        // שימוש ב-Glide לטעינת תמונת הפרופיל
+        // Using Glide to load the profile image
         Glide.with(holder.itemView.getContext())
                 .load(message.getSenderProfileImage())
                 .placeholder(R.drawable.baseline_account_circle_24)
                 .into(holder.imageViewProfile);
 
-        // פורמט להצגת הזמן
+        // Formatting the timestamp
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
         String formattedTime = sdf.format(new Date(message.getTimestamp()));
         holder.textViewTimestamp.setText(formattedTime);
     }
-
-
 
     @Override
     public int getItemCount() {

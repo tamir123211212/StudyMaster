@@ -75,7 +75,7 @@ public class UploadSummaryActivity extends AppCompatActivity {
             userRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    userName = snapshot.child("userName").getValue(String.class); // הנחה שיש לך שדה userName ב-Database
+                    userName = snapshot.child("userName").getValue(String.class);
                 }
 
                 @Override
@@ -149,41 +149,49 @@ public class UploadSummaryActivity extends AppCompatActivity {
         progressDialog.setMessage("מעלה סיכום...");
         progressDialog.show();
 
+        if (imageUri == null) {
+            progressDialog.dismiss();
+            Toast.makeText(this, "נא לבחור תמונה להעלאה", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         String userId = firebaseAuth.getCurrentUser().getUid();
         String uploadTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
 
         DatabaseReference databaseReference = firebaseDatabase.getReference("summaries").push();
         Map<String, Object> summary = new HashMap<>();
         summary.put("userId", userId);
-        summary.put("userName", userName); // הוספת שם המשתמש
+        summary.put("userName", userName);
         summary.put("title", title);
         summary.put("subject", subject);
         summary.put("uploadTime", uploadTime);
 
-        if (imageUri != null) {
-            final StorageReference storageReference = firebaseStorage.getReference().child("summaries/" + System.currentTimeMillis() + ".jpg");
-            storageReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            String imageUrl = uri.toString();
-                            summary.put("imageUrl", imageUrl);
-                            saveSummaryToDatabase(summary, progressDialog);
-                        }
-                    });
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    progressDialog.dismiss();
-                    Toast.makeText(UploadSummaryActivity.this, "העלאת התמונה נכשלה: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        } else {
-            saveSummaryToDatabase(summary, progressDialog);
-        }
+        final StorageReference storageReference = firebaseStorage.getReference().child("summaries/" + System.currentTimeMillis() + ".jpg");
+        storageReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        String imageUrl = uri.toString();
+                        summary.put("imageUrl", imageUrl);
+                        saveSummaryToDatabase(summary, progressDialog);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        progressDialog.dismiss();
+                        Toast.makeText(UploadSummaryActivity.this, "העלאת התמונה נכשלה: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                progressDialog.dismiss();
+                Toast.makeText(UploadSummaryActivity.this, "העלאת התמונה נכשלה: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void saveSummaryToDatabase(Map<String, Object> summary, ProgressDialog progressDialog) {

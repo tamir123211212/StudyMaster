@@ -1,6 +1,7 @@
 package com.example.project.Dates;
 
 public class Event {
+
     private String id;
     private String userId;
     private String eventId;
@@ -14,6 +15,7 @@ public class Event {
         // Default constructor required for calls to DataSnapshot.getValue(Event.class)
     }
 
+    // קונסטרקטור מותאם אישית עם ID
     public Event(String id, String userId, String eventId, String eventDate, String eventTime, String eventType, String description, boolean wantsNotification) {
         this.id = id;
         this.userId = userId;
@@ -25,7 +27,17 @@ public class Event {
         this.wantsNotification = wantsNotification;
     }
 
-    // Getters and setters
+    // קונסטרקטור מותאם אישית ללא ID
+    public Event(String userId, String eventDate, String eventTime, String eventType, String description, boolean wantsNotification) {
+        this.userId = userId;
+        this.eventDate = eventDate;
+        this.eventTime = eventTime;
+        this.eventType = eventType;
+        this.description = description;
+        this.wantsNotification = wantsNotification;
+    }
+
+    // גטרים וסטטרים
     public String getId() {
         return id;
     }

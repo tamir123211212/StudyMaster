@@ -130,9 +130,20 @@ public class DatesFragment extends Fragment {
     }
 
     private void changeDay(int days) {
-        calendar.add(Calendar.DAY_OF_MONTH, days);
-        displayCurrentDate();
-        loadRemindersForCurrentDate();
+        Calendar today = Calendar.getInstance(); // Get the current date
+
+        // Check if the new date would be before the current date
+        Calendar newDate = (Calendar) calendar.clone();
+        newDate.add(Calendar.DAY_OF_MONTH, days);
+
+        // Allow going back to the current date
+        if (newDate.before(today) && newDate.get(Calendar.DAY_OF_YEAR) != today.get(Calendar.DAY_OF_YEAR)) {
+            Toast.makeText(getContext(), "Cannot go back to a previous date", Toast.LENGTH_SHORT).show();
+        } else {
+            calendar.add(Calendar.DAY_OF_MONTH, days);
+            displayCurrentDate();
+            loadRemindersForCurrentDate();
+        }
     }
 
     private void openAddReminderDialog() {
@@ -160,7 +171,7 @@ public class DatesFragment extends Fragment {
                 if (!reminderName.isEmpty()) {
                     addReminderToFirebase(reminderName, hour, minute, wantsNotification);
                     if (wantsNotification) {
-                        setAlarm(reminderName, hour, minute); // קוד להגדיר את ההתראה
+                        setAlarm(reminderName, hour, minute, calendar); // Pass the selected date
                     }
                     dialog.dismiss();
                 } else {
@@ -179,7 +190,7 @@ public class DatesFragment extends Fragment {
         dialog.show();
     }
 
-    private void setAlarm(String reminderName, int hour, int minute) {
+    private void setAlarm(String reminderName, int hour, int minute, Calendar selectedDate) {
         alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !alarmManager.canScheduleExactAlarms()) {
             Log.d(TAG, "Cannot schedule exact alarms. Requesting permission.");
@@ -192,14 +203,10 @@ public class DatesFragment extends Fragment {
             Intent intent = new Intent(getContext(), AlarmReceiver.class);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
-            Calendar alarmCalendar = Calendar.getInstance();
+            Calendar alarmCalendar = (Calendar) selectedDate.clone(); // Clone the selected date
             alarmCalendar.set(Calendar.HOUR_OF_DAY, hour);
             alarmCalendar.set(Calendar.MINUTE, minute);
             alarmCalendar.set(Calendar.SECOND, 0);
-
-            if (alarmCalendar.before(Calendar.getInstance())) {
-                alarmCalendar.add(Calendar.DATE, 1); // If the time is before now, set it for the next day
-            }
 
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmCalendar.getTimeInMillis(), pendingIntent);
             Log.d(TAG, "Alarm set for " + String.format("%02d:%02d", hour, minute) + " at " + alarmCalendar.getTimeInMillis());
@@ -220,7 +227,6 @@ public class DatesFragment extends Fragment {
         String description = reminderName + " בשעה " + String.format("%02d:%02d", hour, minute) + (wantsNotification ? " עם תזכורת" : "");
 
         Event event = new Event(id, userId, eventId, eventDate, String.format("%02d:%02d", hour, minute), eventType, description, wantsNotification);
-
         eventsRef.child(id).setValue(event);
     }
 

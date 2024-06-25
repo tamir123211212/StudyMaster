@@ -6,6 +6,13 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+=======
+    <Button
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="חזור" />
+
     <TextView
         android:id="@+id/textViewName"
         android:layout_width="wrap_content"

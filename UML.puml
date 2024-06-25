@@ -1,0 +1,681 @@
+@startuml
+class com.example.project.Dates.Event {
+- String id
+- String userId
+- String eventId
+- String eventDate
+- String eventTime
+- String eventType
+- String description
+- boolean wantsNotification
++ String getId()
++ void setId(String)
++ String getUserId()
++ void setUserId(String)
++ String getEventId()
++ void setEventId(String)
++ String getEventDate()
++ void setEventDate(String)
++ String getEventTime()
++ void setEventTime(String)
++ String getEventType()
++ void setEventType(String)
++ String getDescription()
++ void setDescription(String)
++ boolean isWantsNotification()
++ void setWantsNotification(boolean)
+}
+
+
+class com.example.project.Chat.ChatAdapter {
+- List<Chat> chatList
+- Context context
+- OnChatClickListener onChatClickListener
++ ChatViewHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(ChatViewHolder,int)
++ int getItemCount()
+}
+
+
+class com.example.project.Chat.ChatAdapter$ChatViewHolder {
++ TextView textViewName
++ TextView textViewDescription
+}
+
+interface com.example.project.Chat.ChatAdapter$OnChatClickListener {
+~ void onChatClick(Chat)
+}
+
+class com.example.project.Chat.MessageAdapter {
+- List<Message> messageList
++ MessageViewHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(MessageViewHolder,int)
++ int getItemCount()
+}
+
+
+class com.example.project.Chat.MessageAdapter$MessageViewHolder {
++ TextView textViewContent
++ TextView textViewSenderName
++ TextView textViewTimestamp
++ ImageView imageViewProfile
+}
+
+class com.example.project.Chat.Message {
+- String id
+- String content
+- String senderId
+- String senderName
+- String senderProfileImage
+- long timestamp
++ String getId()
++ String getContent()
++ String getSenderId()
++ String getSenderName()
++ String getSenderProfileImage()
++ long getTimestamp()
+}
+
+
+class com.example.project.InfoActivity {
+~ DatabaseReference databaseReference
+~ Spinner spinnerClass
+~ EditText editTextUsername
+# void onCreate(Bundle)
+- void saveSelectedClass(String)
+- void saveUserData(String,String,String)
+}
+
+
+class com.example.project.databinding.ActivityUploadSummaryBinding {
+- LinearLayout rootView
++ Button btnBack
++ Button btnSelectImage
++ Button btnSubmitSummary
++ EditText editTextSummaryTitle
++ ImageView imageViewSummary
++ Spinner spinnerSubject
++ LinearLayout getRoot()
++ {static} ActivityUploadSummaryBinding inflate(LayoutInflater)
++ {static} ActivityUploadSummaryBinding inflate(LayoutInflater,ViewGroup,boolean)
++ {static} ActivityUploadSummaryBinding bind(View)
+}
+
+
+class com.example.project.databinding.ActivityProfessionsBinding {
+- LinearLayout rootView
++ Button buttonBack
++ Button buttonUploadSummary
++ Button buttonUserSummaries
++ LinearLayout imagesContainer
++ LinearLayout main
++ Spinner spinnerSummaries
++ LinearLayout getRoot()
++ {static} ActivityProfessionsBinding inflate(LayoutInflater)
++ {static} ActivityProfessionsBinding inflate(LayoutInflater,ViewGroup,boolean)
++ {static} ActivityProfessionsBinding bind(View)
+}
+
+
+class com.example.project.Summaries.ProfessionsActivity {
+~ FirebaseStorage storage
+- LinearLayout imagesContainer
+# void onCreate(Bundle)
+}
+
+
+class com.example.project.databinding.ActivityImageViewBinding {
+- LinearLayout rootView
++ Button btnBack
++ ImageView imageView
++ LinearLayout getRoot()
++ {static} ActivityImageViewBinding inflate(LayoutInflater)
++ {static} ActivityImageViewBinding inflate(LayoutInflater,ViewGroup,boolean)
++ {static} ActivityImageViewBinding bind(View)
+}
+
+
+class com.example.project.Summaries.SummariesFragment {
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+}
+
+class com.example.project.databinding.ActivityUserSummaryBinding {
+- LinearLayout rootView
++ Button btnBack
++ ListView listViewSummaries
++ LinearLayout getRoot()
++ {static} ActivityUserSummaryBinding inflate(LayoutInflater)
++ {static} ActivityUserSummaryBinding inflate(LayoutInflater,ViewGroup,boolean)
++ {static} ActivityUserSummaryBinding bind(View)
+}
+
+
+class com.example.project.databinding.ActivityFullScreenImageBinding {
+- FrameLayout rootView
++ Button buttonBackFullScreen
++ ImageView fullScreenImageView
++ FrameLayout getRoot()
++ {static} ActivityFullScreenImageBinding inflate(LayoutInflater)
++ {static} ActivityFullScreenImageBinding inflate(LayoutInflater,ViewGroup,boolean)
++ {static} ActivityFullScreenImageBinding bind(View)
+}
+
+
+class com.example.project.databinding.FragmentSummariesBinding {
+- LinearLayout rootView
++ TextView citizen
++ ImageButton citizenimg
++ TextView eng
++ ImageButton engimg
++ TextView math
++ ImageButton mathimg
++ LinearLayout getRoot()
++ {static} FragmentSummariesBinding inflate(LayoutInflater)
++ {static} FragmentSummariesBinding inflate(LayoutInflater,ViewGroup,boolean)
++ {static} FragmentSummariesBinding bind(View)
+}
+
+
+class com.example.project.ExampleInstrumentedTest {
++ void useAppContext()
+}
+
+class com.example.project.databinding.ActivityMainBinding {
+- ConstraintLayout rootView
++ Button Btcreate
++ Button Btsignin
++ EditText Etemail
++ EditText Etpass
++ ConstraintLayout getRoot()
++ {static} ActivityMainBinding inflate(LayoutInflater)
++ {static} ActivityMainBinding inflate(LayoutInflater,ViewGroup,boolean)
++ {static} ActivityMainBinding bind(View)
+}
+
+
+class com.example.project.Account.AccountFragment {
+- TextView textViewUsername
+- ImageView imageViewProfile
+- FirebaseAuth mAuth
+- DatabaseReference mDatabase
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+- void logout()
+}
+
+
+class com.example.project.databinding.ActivitySignupBinding {
+- LinearLayout rootView
++ Button buttonSignup
++ EditText editTextEmail
++ EditText editTextPassword
++ LinearLayout getRoot()
++ {static} ActivitySignupBinding inflate(LayoutInflater)
++ {static} ActivitySignupBinding inflate(LayoutInflater,ViewGroup,boolean)
++ {static} ActivitySignupBinding bind(View)
+}
+
+
+class com.example.project.Chat.ChatDetailsActivity {
+- RecyclerView recyclerViewMessages
+- EditText editTextMessage
+- ImageButton imageButtonSend
+- MessageAdapter messageAdapter
+- List<Message> messageList
+- DatabaseReference databaseMessages
+- DatabaseReference databaseUsers
+- FirebaseAuth auth
+- TextView textViewChatName
+- TextView textViewChatTopic
+- String chatId
+# void onCreate(Bundle)
+- void sendMessage()
+}
+
+
+class com.example.project.databinding.DialogAddReminderBinding {
+- LinearLayout rootView
++ Button buttonCancel
++ Button buttonSave
++ CheckBox checkboxNotification
++ EditText edittextReminderName
++ TimePicker timePicker
++ LinearLayout getRoot()
++ {static} DialogAddReminderBinding inflate(LayoutInflater)
++ {static} DialogAddReminderBinding inflate(LayoutInflater,ViewGroup,boolean)
++ {static} DialogAddReminderBinding bind(View)
+}
+
+
+class com.example.project.Dates.AlarmReceiver {
+- {static} String TAG
++ void onReceive(Context,Intent)
+}
+
+
+class com.example.project.Summaries.UploadSummaryActivity {
+- {static} int PICK_IMAGE_REQUEST
+- EditText editTextTitle
+- Spinner spinnerSubject
+- ImageView imageViewSummary
+- Uri imageUri
+- FirebaseAuth firebaseAuth
+- FirebaseDatabase firebaseDatabase
+- FirebaseStorage firebaseStorage
+- String userName
+# void onCreate(Bundle)
+- void openFileChooser()
+# void onActivityResult(int,int,Intent)
+- void uploadSummary()
+- void saveSummaryToDatabase(Map<String,Object>,ProgressDialog)
+}
+
+
+class com.example.project.Home.HomeFragment {
+- {static} String TAG
+- FirebaseAuth mAuth
+- ImageView imageViewProfile
+- DatabaseReference mDatabase
+- TextView TvClass
+- Button buttonAddReminder
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+- void replaceFragment(Fragment)
+}
+
+
+class com.example.project.databinding.FragmentSecondBinding {
+- NestedScrollView rootView
++ Button buttonSecond
++ TextView textviewSecond
++ NestedScrollView getRoot()
++ {static} FragmentSecondBinding inflate(LayoutInflater)
++ {static} FragmentSecondBinding inflate(LayoutInflater,ViewGroup,boolean)
++ {static} FragmentSecondBinding bind(View)
+}
+
+
+class com.example.project.databinding.DialogAddChatBinding {
+- LinearLayout rootView
++ EditText editTextChatDescription
++ EditText editTextChatName
++ LinearLayout getRoot()
++ {static} DialogAddChatBinding inflate(LayoutInflater)
++ {static} DialogAddChatBinding inflate(LayoutInflater,ViewGroup,boolean)
++ {static} DialogAddChatBinding bind(View)
+}
+
+
+class com.example.project.databinding.SummaryItemBinding {
+- LinearLayout rootView
++ ImageView imageViewProfile
++ TextView textViewTitle
++ TextView textViewUserName
++ LinearLayout getRoot()
++ {static} SummaryItemBinding inflate(LayoutInflater)
++ {static} SummaryItemBinding inflate(LayoutInflater,ViewGroup,boolean)
++ {static} SummaryItemBinding bind(View)
+}
+
+
+class com.example.project.databinding.ActivityChatDetailsBinding {
+- LinearLayout rootView
++ EditText editTextMessage
++ ImageButton imageButtonSend
++ RecyclerView recyclerViewMessages
++ TextView textViewName
++ TextView textViewTopic
++ LinearLayout getRoot()
++ {static} ActivityChatDetailsBinding inflate(LayoutInflater)
++ {static} ActivityChatDetailsBinding inflate(LayoutInflater,ViewGroup,boolean)
++ {static} ActivityChatDetailsBinding bind(View)
+}
+
+
+class com.example.project.Summaries.Summary {
+- String title
+- String userId
+- String userName
+- String subject
+- String uploadTime
+- String imageUrl
++ String getTitle()
++ void setTitle(String)
++ String getUserId()
++ void setUserId(String)
++ String getUserName()
++ void setUserName(String)
++ String getSubject()
++ void setSubject(String)
++ String getUploadTime()
++ void setUploadTime(String)
++ String getImageUrl()
++ void setImageUrl(String)
+}
+
+
+class com.example.project.databinding.ActivityEditBinding {
+- RelativeLayout rootView
++ Button buttonCancel
++ Button buttonSave
++ CircleImageView imageViewProfile
++ RelativeLayout main
++ TextView textViewChangeProfileBtn
++ RelativeLayout getRoot()
++ {static} ActivityEditBinding inflate(LayoutInflater)
++ {static} ActivityEditBinding inflate(LayoutInflater,ViewGroup,boolean)
++ {static} ActivityEditBinding bind(View)
+}
+
+
+class com.example.project.Summaries.FullScreenImageActivity {
+# void onCreate(Bundle)
+}
+
+class com.example.project.databinding.FragmentChatBinding {
+- RelativeLayout rootView
++ Button buttonAddChat
++ RecyclerView recyclerView
++ RelativeLayout getRoot()
++ {static} FragmentChatBinding inflate(LayoutInflater)
++ {static} FragmentChatBinding inflate(LayoutInflater,ViewGroup,boolean)
++ {static} FragmentChatBinding bind(View)
+}
+
+
+class com.example.project.Summaries.UserSummaryActivity {
+- ListView listViewSummaries
+- List<Summary> summaryList
+- SummaryAdapter adapter
+# void onCreate(Bundle)
+}
+
+
+class com.example.project.databinding.FragmentAccountBinding {
+- RelativeLayout rootView
++ Button buttonChangeProfilePicture
++ Button buttonLogout
++ ImageView imageViewProfile
++ TextView textViewClass
++ TextView textViewClassValue
++ TextView textViewDescription
++ TextView textViewDescriptionValue
++ TextView textViewEmail
++ TextView textViewUsername
++ TextView textViewUsernameValue
++ TextView textViewValue
++ RelativeLayout getRoot()
++ {static} FragmentAccountBinding inflate(LayoutInflater)
++ {static} FragmentAccountBinding inflate(LayoutInflater,ViewGroup,boolean)
++ {static} FragmentAccountBinding bind(View)
+}
+
+
+class com.example.project.Account.EditActivity {
+- CircleImageView imageViewProfile
+- Button buttonCancel
+- TextView textViewChangeProfileBtn
+- FirebaseAuth mAuth
+- Uri imageUri
+- String myUri
+- UploadTask uploadTask
+- StorageReference storageProfilePicsRef
+- DatabaseReference userRef
+- ActivityResultLauncher<Intent> resultLauncher
+# void onCreate(Bundle)
+- void openImageChooser()
+- void uploadProfileImage()
+- String getFileExtension(Uri)
+}
+
+
+class com.example.project.Chat.ChatFragment {
+- RecyclerView recyclerView
+- ChatAdapter chatAdapter
+- List<Chat> chatList
+- DatabaseReference databaseChats
+- FirebaseAuth auth
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+- void showAddChatDialog()
+- void addChat(String,String,String)
+- void openChatDetails(Chat)
+}
+
+
+class com.example.project.databinding.ActivityInfoBinding {
+- RelativeLayout rootView
++ Button buttonSubmit
++ EditText editTextCourses1
++ EditText editTextCourses2
++ EditText editTextUsername
++ Spinner spinnerClass
++ RelativeLayout getRoot()
++ {static} ActivityInfoBinding inflate(LayoutInflater)
++ {static} ActivityInfoBinding inflate(LayoutInflater,ViewGroup,boolean)
++ {static} ActivityInfoBinding bind(View)
+}
+
+
+class com.example.project.databinding.ChatItemBinding {
+- LinearLayout rootView
++ TextView textViewDescription
++ TextView textViewName
++ LinearLayout getRoot()
++ {static} ChatItemBinding inflate(LayoutInflater)
++ {static} ChatItemBinding inflate(LayoutInflater,ViewGroup,boolean)
++ {static} ChatItemBinding bind(View)
+}
+
+
+class com.example.project.HomeActivity {
+- {static} int REQUEST_CODE_SCHEDULE_EXACT_ALARM
+- {static} String TAG
+- BottomNavigationView.OnNavigationItemSelectedListener navListener
+# void onCreate(Bundle)
+- void loadFragment(Fragment)
+- void checkExactAlarmPermission()
+- void checkNotificationPermission()
+# void onActivityResult(int,int,Intent)
+}
+
+
+class com.example.project.Dates.DatesFragment {
+- {static} String TAG
+- TextView currentDateTextView
+- Button addReminderButton
+- ListView remindersListView
+- ArrayAdapter<String> remindersAdapter
+- List<Event> remindersList
+- FirebaseDatabase database
+- DatabaseReference eventsRef
+- FirebaseAuth mAuth
+- Calendar calendar
+- AlarmManager alarmManager
++ View onCreateView(LayoutInflater,ViewGroup,Bundle)
+- void createNotificationChannel()
+- void displayCurrentDate()
+- void changeDay(int)
+- void openAddReminderDialog()
+- void setAlarm(String,int,int)
+- void addReminderToFirebase(String,int,int,boolean)
+- void loadRemindersForCurrentDate()
+}
+
+
+class com.example.project.databinding.MessageItemBinding {
+- LinearLayout rootView
++ ImageView imageViewProfile
++ TextView textViewContent
++ TextView textViewSenderName
++ TextView textViewTimestamp
++ LinearLayout getRoot()
++ {static} MessageItemBinding inflate(LayoutInflater)
++ {static} MessageItemBinding inflate(LayoutInflater,ViewGroup,boolean)
++ {static} MessageItemBinding bind(View)
+}
+
+
+class com.example.project.ExampleUnitTest {
++ void addition_isCorrect()
+}
+
+class com.example.project.databinding.ContentImageViewBinding {
+- ConstraintLayout rootView
++ ConstraintLayout getRoot()
++ {static} ContentImageViewBinding inflate(LayoutInflater)
++ {static} ContentImageViewBinding inflate(LayoutInflater,ViewGroup,boolean)
++ {static} ContentImageViewBinding bind(View)
+}
+
+
+class com.example.project.Summaries.SummaryAdapter {
+- Context context
+- List<Summary> summaries
++ View getView(int,View,ViewGroup)
+}
+
+
+class com.example.project.Summaries.ImageAdapter {
+- Context context
+- List<String> imageUrls
++ int getCount()
++ Object getItem(int)
++ long getItemId(int)
++ View getView(int,View,ViewGroup)
+}
+
+
+class com.example.project.Signup {
+- FirebaseAuth mAuth
+- Button buttonSignup
+- EditText editTextEmail
+# void onCreate(Bundle)
+- void signUpUser(String,String)
+}
+
+
+class com.example.project.databinding.ActivityHomeBinding {
+- RelativeLayout rootView
++ BottomNavigationView bottomNavigationView
++ FrameLayout fragmentContainer
++ RelativeLayout getRoot()
++ {static} ActivityHomeBinding inflate(LayoutInflater)
++ {static} ActivityHomeBinding inflate(LayoutInflater,ViewGroup,boolean)
++ {static} ActivityHomeBinding bind(View)
+}
+
+
+class com.example.project.MainActivity {
+- EditText Etemail
+- Button Btsignin
+- FirebaseAuth mAuth
+# void onCreate(Bundle)
+- void signInUser(String,String)
+}
+
+
+class com.example.project.databinding.FragmentHomeBinding {
+- LinearLayout rootView
++ TextView TvClass
++ TextView TvUsername
++ TextView Tvcourse1
++ TextView Tvcourse2
++ ImageView imageViewProfile
++ LinearLayout getRoot()
++ {static} FragmentHomeBinding inflate(LayoutInflater)
++ {static} FragmentHomeBinding inflate(LayoutInflater,ViewGroup,boolean)
++ {static} FragmentHomeBinding bind(View)
+}
+
+
+class com.example.project.Summaries.ImageViewActivity {
+# void onCreate(Bundle)
+}
+
+class com.example.project.databinding.FragmentDatesBinding {
+- ConstraintLayout rootView
++ Button buttonAddReminder
++ Button buttonNextDay
++ Button buttonPreviousDay
++ ListView listviewReminders
++ TextView textviewCurrentDate
++ ConstraintLayout getRoot()
++ {static} FragmentDatesBinding inflate(LayoutInflater)
++ {static} FragmentDatesBinding inflate(LayoutInflater,ViewGroup,boolean)
++ {static} FragmentDatesBinding bind(View)
+}
+
+
+class com.example.project.databinding.FragmentFirstBinding {
+- NestedScrollView rootView
++ Button buttonFirst
++ TextView textviewFirst
++ NestedScrollView getRoot()
++ {static} FragmentFirstBinding inflate(LayoutInflater)
++ {static} FragmentFirstBinding inflate(LayoutInflater,ViewGroup,boolean)
++ {static} FragmentFirstBinding bind(View)
+}
+
+
+class com.example.project.databinding.ListItemImageBinding {
+- ImageView rootView
++ ImageView itemImage
++ ImageView getRoot()
++ {static} ListItemImageBinding inflate(LayoutInflater)
++ {static} ListItemImageBinding inflate(LayoutInflater,ViewGroup,boolean)
++ {static} ListItemImageBinding bind(View)
+}
+
+
+
+
+com.example.project.Chat.Adapter <|-- com.example.project.Chat.ChatAdapter
+com.example.project.Chat.ChatAdapter +.. com.example.project.Chat.ChatAdapter$ChatViewHolder
+com.example.project.Chat.ViewHolder <|-- com.example.project.Chat.ChatAdapter$ChatViewHolder
+com.example.project.Chat.ChatAdapter +.. com.example.project.Chat.ChatAdapter$OnChatClickListener
+com.example.project.Chat.Adapter <|-- com.example.project.Chat.MessageAdapter
+com.example.project.Chat.MessageAdapter +.. com.example.project.Chat.MessageAdapter$MessageViewHolder
+com.example.project.Chat.ViewHolder <|-- com.example.project.Chat.MessageAdapter$MessageViewHolder
+androidx.appcompat.app.AppCompatActivity <|-- com.example.project.InfoActivity
+androidx.viewbinding.ViewBinding <|.. com.example.project.databinding.ActivityUploadSummaryBinding
+androidx.viewbinding.ViewBinding <|.. com.example.project.databinding.ActivityProfessionsBinding
+androidx.appcompat.app.AppCompatActivity <|-- com.example.project.Summaries.ProfessionsActivity
+androidx.viewbinding.ViewBinding <|.. com.example.project.databinding.ActivityImageViewBinding
+androidx.fragment.app.Fragment <|-- com.example.project.Summaries.SummariesFragment
+androidx.viewbinding.ViewBinding <|.. com.example.project.databinding.ActivityUserSummaryBinding
+androidx.viewbinding.ViewBinding <|.. com.example.project.databinding.ActivityFullScreenImageBinding
+androidx.viewbinding.ViewBinding <|.. com.example.project.databinding.FragmentSummariesBinding
+androidx.viewbinding.ViewBinding <|.. com.example.project.databinding.ActivityMainBinding
+androidx.fragment.app.Fragment <|-- com.example.project.Account.AccountFragment
+androidx.viewbinding.ViewBinding <|.. com.example.project.databinding.ActivitySignupBinding
+androidx.appcompat.app.AppCompatActivity <|-- com.example.project.Chat.ChatDetailsActivity
+androidx.viewbinding.ViewBinding <|.. com.example.project.databinding.DialogAddReminderBinding
+android.content.BroadcastReceiver <|-- com.example.project.Dates.AlarmReceiver
+androidx.appcompat.app.AppCompatActivity <|-- com.example.project.Summaries.UploadSummaryActivity
+androidx.fragment.app.Fragment <|-- com.example.project.Home.HomeFragment
+androidx.viewbinding.ViewBinding <|.. com.example.project.databinding.FragmentSecondBinding
+androidx.viewbinding.ViewBinding <|.. com.example.project.databinding.DialogAddChatBinding
+androidx.viewbinding.ViewBinding <|.. com.example.project.databinding.SummaryItemBinding
+androidx.viewbinding.ViewBinding <|.. com.example.project.databinding.ActivityChatDetailsBinding
+androidx.viewbinding.ViewBinding <|.. com.example.project.databinding.ActivityEditBinding
+androidx.appcompat.app.AppCompatActivity <|-- com.example.project.Summaries.FullScreenImageActivity
+androidx.viewbinding.ViewBinding <|.. com.example.project.databinding.FragmentChatBinding
+androidx.appcompat.app.AppCompatActivity <|-- com.example.project.Summaries.UserSummaryActivity
+androidx.viewbinding.ViewBinding <|.. com.example.project.databinding.FragmentAccountBinding
+androidx.appcompat.app.AppCompatActivity <|-- com.example.project.Account.EditActivity
+androidx.fragment.app.Fragment <|-- com.example.project.Chat.ChatFragment
+androidx.viewbinding.ViewBinding <|.. com.example.project.databinding.ActivityInfoBinding
+androidx.viewbinding.ViewBinding <|.. com.example.project.databinding.ChatItemBinding
+androidx.appcompat.app.AppCompatActivity <|-- com.example.project.HomeActivity
+androidx.fragment.app.Fragment <|-- com.example.project.Dates.DatesFragment
+androidx.viewbinding.ViewBinding <|.. com.example.project.databinding.MessageItemBinding
+androidx.viewbinding.ViewBinding <|.. com.example.project.databinding.ContentImageViewBinding
+android.widget.ArrayAdapter <|-- com.example.project.Summaries.SummaryAdapter
+android.widget.BaseAdapter <|-- com.example.project.Summaries.ImageAdapter
+androidx.appcompat.app.AppCompatActivity <|-- com.example.project.Signup
+androidx.viewbinding.ViewBinding <|.. com.example.project.databinding.ActivityHomeBinding
+androidx.appcompat.app.AppCompatActivity <|-- com.example.project.MainActivity
+androidx.viewbinding.ViewBinding <|.. com.example.project.databinding.FragmentHomeBinding
+androidx.appcompat.app.AppCompatActivity <|-- com.example.project.Summaries.ImageViewActivity
+androidx.viewbinding.ViewBinding <|.. com.example.project.databinding.FragmentDatesBinding
+androidx.viewbinding.ViewBinding <|.. com.example.project.databinding.FragmentFirstBinding
+androidx.viewbinding.ViewBinding <|.. com.example.project.databinding.ListItemImageBinding
+@enduml

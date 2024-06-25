@@ -46,6 +46,7 @@ public class ProfessionsActivity extends AppCompatActivity {
         imagesContainer = findViewById(R.id.images_container);
         Spinner spinner = findViewById(R.id.spinner_summaries);
         Button button_user_summaries = findViewById(R.id.button_user_summaries);
+
         button_user_summaries.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

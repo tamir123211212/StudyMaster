@@ -3,6 +3,11 @@ package com.example.project.Chat;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -10,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.project.HomeActivity;
 import com.example.project.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -34,6 +41,7 @@ public class ChatDetailsActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private TextView textViewChatName;
     private TextView textViewChatTopic;
+    private Button back;
     private String chatId;
 
     @Override
@@ -46,6 +54,8 @@ public class ChatDetailsActivity extends AppCompatActivity {
         recyclerViewMessages = findViewById(R.id.recyclerViewMessages);
         editTextMessage = findViewById(R.id.editTextMessage);
         imageButtonSend = findViewById(R.id.imageButtonSend);
+        back = findViewById(R.id.back);
+
 
         recyclerViewMessages.setLayoutManager(new LinearLayoutManager(this));
         messageList = new ArrayList<>();
@@ -72,6 +82,10 @@ public class ChatDetailsActivity extends AppCompatActivity {
                 sendMessage();
             }
         });
+
+        back.setOnClickListener(v -> finish());
+
+
 
         databaseMessages.orderByChild("timestamp").addValueEventListener(new ValueEventListener() {
             @Override
@@ -134,3 +148,4 @@ public class ChatDetailsActivity extends AppCompatActivity {
         }
     }
 }
+

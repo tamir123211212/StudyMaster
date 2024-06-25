@@ -52,4 +52,17 @@
         android:layout_marginEnd="20dp"
         android:layout_marginTop="20dp"/>
 
+
+    <Button
+        android:id="@+id/takePictureBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewChangeProfileBtn"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="144dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="144dp"
+        android:text="צילום תמונה" />
+
 </RelativeLayout>

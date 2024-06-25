@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.example.project.HomeActivity;
 import com.example.project.MainActivity;
 import com.example.project.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class AccountFragment extends Fragment {
+    private static final int REQUEST_CODE_EDIT = 1;
     private TextView textViewUsername, textViewValue, textViewDescriptionValue, textViewClassValue;
     private ImageView imageViewProfile; // ImageView for user's profile picture
 
@@ -93,7 +95,7 @@ public class AccountFragment extends Fragment {
                 // Create an Intent to navigate to Activity/EditActivity
                 Intent intent = new Intent(getActivity(), EditActivity.class);
                 // Start the intent to move to the next screen
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST_CODE_EDIT);
             }
         });
 
