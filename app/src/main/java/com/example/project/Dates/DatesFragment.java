@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 import android.provider.Settings;
 import android.view.LayoutInflater;
@@ -122,7 +121,7 @@ public class DatesFragment extends Fragment {
             Log.d(TAG, "Notification channel created");
         }
     }
-
+    // Display the current date
     private void displayCurrentDate() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, dd MMMM yyyy", Locale.getDefault());
         String currentDate = dateFormat.format(calendar.getTime());
@@ -146,6 +145,7 @@ public class DatesFragment extends Fragment {
         }
     }
 
+    // Open the dialog to add a new reminder
     private void openAddReminderDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         LayoutInflater inflater = getLayoutInflater();
@@ -169,8 +169,14 @@ public class DatesFragment extends Fragment {
                 boolean wantsNotification = notificationCheckBox.isChecked();
 
                 if (!reminderName.isEmpty()) {
+                    if (wantsNotification && !canScheduleExactAlarms()) {
+                        Toast.makeText(getContext(), "אין הרשאה לקביעת תזכורות עם התראות.", Toast.LENGTH_LONG).show();
+                        requestExactAlarmPermission();
+                        return;
+                    }
+
                     addReminderToFirebase(reminderName, hour, minute, wantsNotification);
-                    if (wantsNotification) {
+                    if (wantsNotification && canScheduleExactAlarms()) {
                         setAlarm(reminderName, hour, minute, calendar); // Pass the selected date
                     }
                     dialog.dismiss();
@@ -190,13 +196,28 @@ public class DatesFragment extends Fragment {
         dialog.show();
     }
 
+    private boolean canScheduleExactAlarms() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
+            return alarmManager != null && alarmManager.canScheduleExactAlarms();
+        }
+        return true;
+    }
+
+    private void requestExactAlarmPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            Intent intent = new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
+            startActivity(intent);
+        }
+    }
+    // Set an alarm for the selected date and time
     private void setAlarm(String reminderName, int hour, int minute, Calendar selectedDate) {
         alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !alarmManager.canScheduleExactAlarms()) {
             Log.d(TAG, "Cannot schedule exact alarms. Requesting permission.");
-            Intent intent = new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
-            startActivity(intent);
-            return;
+            requestExactAlarmPermission();
+            Toast.makeText(getContext(), "אין הרשאה לקביעת התראות מדויקות. ", Toast.LENGTH_LONG).show();
+            return; // חזרה במקרה של חוסר בהרשאה
         }
 
         try {
@@ -229,7 +250,7 @@ public class DatesFragment extends Fragment {
         Event event = new Event(id, userId, eventId, eventDate, String.format("%02d:%02d", hour, minute), eventType, description, wantsNotification);
         eventsRef.child(id).setValue(event);
     }
-
+    // Load reminders for the current date
     private void loadRemindersForCurrentDate() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, dd MMMM yyyy", Locale.getDefault());
         String currentDate = dateFormat.format(calendar.getTime());

@@ -11,11 +11,11 @@ public class Event {
     private String description;
     private boolean wantsNotification;
 
+    // Default constructor
     public Event() {
-        // Default constructor required for calls to DataSnapshot.getValue(Event.class)
     }
 
-    // קונסטרקטור מותאם אישית עם ID
+    // Constructor with all fields
     public Event(String id, String userId, String eventId, String eventDate, String eventTime, String eventType, String description, boolean wantsNotification) {
         this.id = id;
         this.userId = userId;
@@ -27,17 +27,7 @@ public class Event {
         this.wantsNotification = wantsNotification;
     }
 
-    // קונסטרקטור מותאם אישית ללא ID
-    public Event(String userId, String eventDate, String eventTime, String eventType, String description, boolean wantsNotification) {
-        this.userId = userId;
-        this.eventDate = eventDate;
-        this.eventTime = eventTime;
-        this.eventType = eventType;
-        this.description = description;
-        this.wantsNotification = wantsNotification;
-    }
-
-    // גטרים וסטטרים
+    // Getters and setters
     public String getId() {
         return id;
     }

@@ -52,12 +52,11 @@ public class InfoActivity extends AppCompatActivity {
             }
         });
 
-        // Assuming there's a button to save user data, attach listener to it
         Button buttonSubmit = findViewById(R.id.buttonSubmit);
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Get user data from EditText fields
+                // Get user input
                 String username = editTextUsername.getText().toString();
                 String course1 = editTextCourses1.getText().toString();
                 String course2 = editTextCourses2.getText().toString();

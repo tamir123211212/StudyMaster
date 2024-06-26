@@ -37,7 +37,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         holder.textViewContent.setText(message.getContent());
         holder.textViewSenderName.setText(message.getSenderName());
 
-        // Logging the URL being loaded by Glide
         Log.d("MessageAdapter", "Loading Image URL: " + message.getSenderProfileImage());
 
         // Using Glide to load the profile image

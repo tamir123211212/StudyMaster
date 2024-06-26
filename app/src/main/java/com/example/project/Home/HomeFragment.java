@@ -38,7 +38,6 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        // Initialize views
         TvClass = view.findViewById(R.id.TvClass);
         Tvcourse1 = view.findViewById(R.id.Tvcourse1);
         Tvcourse2 = view.findViewById(R.id.Tvcourse2);
@@ -47,7 +46,6 @@ public class HomeFragment extends Fragment {
 
 
 
-        // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         // Get current user
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -56,12 +54,12 @@ public class HomeFragment extends Fragment {
             // Initialize Firebase Database
             mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(currentUser.getUid());
 
-            // Retrieve user data
+            // Read from firebase database and set data to TextViews
             mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     Log.d(TAG, "User data snapshot: " + dataSnapshot.toString());
-                    if (!isAdded()) return; // Check if fragment is still attached
+                    if (!isAdded()) return;
 
                     // Get user data
                     String username = dataSnapshot.child("username").getValue(String.class);
@@ -95,11 +93,5 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    private void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getParentFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-    }
+
 }

@@ -1,6 +1,7 @@
 package com.example.project.Account;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,6 +19,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.project.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,8 +36,11 @@ import java.io.ByteArrayOutputStream;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static android.Manifest.permission.CAMERA;
+
 public class EditActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_CAMERA = 22;
+    private static final int REQUEST_CODE_CAMERA_PERMISSION = 101;
     private CircleImageView imageViewProfile;
     private Button buttonCancel, buttonSave, takePictureBtn;
     private TextView textViewChangeProfileBtn;
@@ -55,14 +61,12 @@ public class EditActivity extends AppCompatActivity {
         storageProfilePicsRef = FirebaseStorage.getInstance().getReference().child("profile_pictures");
         userRef = FirebaseDatabase.getInstance().getReference().child("users").child(mAuth.getCurrentUser().getUid());
 
-        // Find views
         imageViewProfile = findViewById(R.id.imageViewProfile);
         textViewChangeProfileBtn = findViewById(R.id.textViewChangeProfileBtn);
         buttonCancel = findViewById(R.id.buttonCancel);
         buttonSave = findViewById(R.id.buttonSave);
         takePictureBtn = findViewById(R.id.takePictureBtn);
 
-        // Set OnClickListener for the Cancel button
         buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,7 +75,6 @@ public class EditActivity extends AppCompatActivity {
             }
         });
 
-        // Set OnClickListener for the Save button
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,7 +82,6 @@ public class EditActivity extends AppCompatActivity {
             }
         });
 
-        // Set OnClickListener for the Change Profile Picture text
         textViewChangeProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,7 +89,6 @@ public class EditActivity extends AppCompatActivity {
             }
         });
 
-        // Set OnClickListener for the profile image
         imageViewProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,16 +96,39 @@ public class EditActivity extends AppCompatActivity {
             }
         });
 
-        // Set OnClickListener for the Take Picture button
         takePictureBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(cameraIntent, REQUEST_CODE_CAMERA);
+                checkCameraPermissionAndOpenCamera();
             }
         });
     }
+    // Check if the camera permission is granted, and if not, request it
+    private void checkCameraPermissionAndOpenCamera() {
+        if (ContextCompat.checkSelfPermission(this, CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{CAMERA}, REQUEST_CODE_CAMERA_PERMISSION);
+        } else {
+            openCamera();
+        }
+    }
 
+    private void openCamera() {
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(cameraIntent, REQUEST_CODE_CAMERA);
+    }
+    // Handle the result of the camera permission request
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CODE_CAMERA_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                openCamera();
+            } else {
+                Toast.makeText(this, "Camera permission is required to take pictures", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+    // Handle the result of the camera intent
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -154,13 +178,11 @@ public class EditActivity extends AppCompatActivity {
                     Uri downloadUri = task.getResult();
                     myUri = downloadUri.toString();
 
-                    // Save the image URL to Firebase Realtime Database under the current user
                     userRef.child("profileImageUrl").setValue(myUri).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 Toast.makeText(EditActivity.this, "Profile image uploaded successfully", Toast.LENGTH_SHORT).show();
-                                // Set result and finish activity
                                 setResult(RESULT_OK);
                                 finish();
                             } else {
@@ -169,15 +191,12 @@ public class EditActivity extends AppCompatActivity {
                         }
                     });
                 } else {
-                    // Handle failure
                     Toast.makeText(EditActivity.this, "Failed to upload profile image", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(e -> {
-                // Handle failure
                 Toast.makeText(EditActivity.this, "Failed to upload profile image", Toast.LENGTH_SHORT).show();
             });
         } else {
-            // Handle no file selected
             Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
         }
     }

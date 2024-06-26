@@ -9,14 +9,11 @@ public class Summary {
     private String imageUrl;
 
 
-    // קונסטרקטור ברירת מחדל (נדרש על ידי Firebase)
 
     public Summary() {
-        // Default constructor required for calls to DataSnapshot.getValue(Summary.class)
     }
 
 
-    // קונסטרקטור מותאם אישית
 
     public Summary(String title, String userId, String userName, String subject, String uploadTime, String imageUrl) {
         this.title = title;

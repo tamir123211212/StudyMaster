@@ -38,6 +38,7 @@ public class ChatFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         chatList = new ArrayList<>();
+        // Initialize the adapter and set it to the RecyclerView
         chatAdapter = new ChatAdapter(chatList, getContext(), this::openChatDetails);
         recyclerView.setAdapter(chatAdapter);
 

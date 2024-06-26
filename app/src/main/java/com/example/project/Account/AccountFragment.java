@@ -28,7 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 public class AccountFragment extends Fragment {
     private static final int REQUEST_CODE_EDIT = 1;
     private TextView textViewUsername, textViewValue, textViewDescriptionValue, textViewClassValue;
-    private ImageView imageViewProfile; // ImageView for user's profile picture
+    private ImageView imageViewProfile;
 
     // Firebase
     private FirebaseAuth mAuth;
@@ -39,14 +39,12 @@ public class AccountFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
 
-        // Initialize TextViews
         textViewUsername = view.findViewById(R.id.textViewUsernameValue);
         textViewValue = view.findViewById(R.id.textViewValue);
         textViewClassValue = view.findViewById(R.id.textViewClassValue);
         textViewDescriptionValue = view.findViewById(R.id.textViewDescriptionValue);
-        imageViewProfile = view.findViewById(R.id.imageViewProfile); // Link to ImageView
+        imageViewProfile = view.findViewById(R.id.imageViewProfile);
 
-        // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         // Get current user
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -55,7 +53,7 @@ public class AccountFragment extends Fragment {
             // Initialize Firebase Database
             mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(currentUser.getUid());
 
-            // Retrieve data from Firebase Realtime Database
+            // Read data from Firebase Realtime Database
             mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -65,13 +63,12 @@ public class AccountFragment extends Fragment {
                     String course2 = dataSnapshot.child("course2").getValue(String.class);
                     String classValue = dataSnapshot.child("selectedClass").getValue(String.class);
 
-                    // Set data to TextViews
                     textViewUsername.setText(username);
                     textViewValue.setText(course1);
                     textViewDescriptionValue.setText(course2);
                     textViewClassValue.setText(classValue);
 
-                    // Set user profile image if available
+                    // Set user profile image
                     String profileImageUrl = dataSnapshot.child("profileImageUrl").getValue(String.class);
                     if (profileImageUrl != null && !profileImageUrl.isEmpty()) {
                         // Load the image into the ImageView
@@ -83,7 +80,7 @@ public class AccountFragment extends Fragment {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-                    // Handle database error
+
                 }
             });
         }
@@ -92,9 +89,7 @@ public class AccountFragment extends Fragment {
         buttonChangeProfilePicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Create an Intent to navigate to Activity/EditActivity
                 Intent intent = new Intent(getActivity(), EditActivity.class);
-                // Start the intent to move to the next screen
                 startActivityForResult(intent, REQUEST_CODE_EDIT);
             }
         });
@@ -111,7 +106,6 @@ public class AccountFragment extends Fragment {
         return view;
     }
 
-    // Method to log out the user
     private void logout() {
         FirebaseAuth.getInstance().signOut();
         // Redirect the user to the MainActivity

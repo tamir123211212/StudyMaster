@@ -34,7 +34,6 @@ public class UserSummaryActivity extends AppCompatActivity {
         summaryList = new ArrayList<>();
         adapter = new SummaryAdapter(this, summaryList);
         listViewSummaries.setAdapter(adapter);
-
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("summaries");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override

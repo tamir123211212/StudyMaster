@@ -29,13 +29,11 @@ public class ProfessionsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_professions);
 
-        // Add back button
         Button buttonBack = findViewById(R.id.button_back);
         buttonBack.setOnClickListener(v -> finish());
 
         String subject = getIntent().getStringExtra("subject");
 
-        // Apply edge-to-edge window insets
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -110,7 +108,7 @@ public class ProfessionsActivity extends AppCompatActivity {
                     ImageView imageView = new ImageView(ProfessionsActivity.this);
                     LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                             LinearLayout.LayoutParams.MATCH_PARENT,
-                            500 // height in pixels, adjust as needed
+                            500
                     );
                     imageView.setLayoutParams(layoutParams);
                     imagesContainer.addView(imageView);
@@ -125,14 +123,12 @@ public class ProfessionsActivity extends AppCompatActivity {
                             startActivity(fullScreenIntent);
                         });
                     }).addOnFailureListener(exception -> {
-                        // Handle any errors
                     });
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                // Do nothing
             }
         });
     }

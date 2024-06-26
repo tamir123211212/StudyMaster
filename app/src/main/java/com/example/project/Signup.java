@@ -60,7 +60,6 @@ public class Signup extends AppCompatActivity {
                             Toast.makeText(Signup.this, "ההרשמה הצליחה.", Toast.LENGTH_SHORT).show();
                             Intent i = new Intent(getApplicationContext(), InfoActivity.class);
                             startActivity(i);
-                            String userId = mAuth.getCurrentUser().getUid();
                         } else {
                             // ההרשמה נכשלה
                             Toast.makeText(Signup.this, "ההרשמה נכשלה. " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();

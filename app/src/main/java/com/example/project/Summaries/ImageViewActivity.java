@@ -23,7 +23,7 @@ public class ImageViewActivity extends AppCompatActivity {
         if (imageUrl != null && !imageUrl.isEmpty()) {
             Glide.with(this)
                     .load(imageUrl)
-                    .placeholder(R.drawable.baseline_account_circle_24)
+                    .placeholder(R.drawable.ic_launcher_background)
                     .into(imageView);
         }
 

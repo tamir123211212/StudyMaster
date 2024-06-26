@@ -80,7 +80,6 @@ public class UploadSummaryActivity extends AppCompatActivity {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    // Handle possible errors.
                 }
             });
         }

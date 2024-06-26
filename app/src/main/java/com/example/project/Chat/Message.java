@@ -9,7 +9,6 @@ public class Message {
     private long timestamp;
 
     public Message() {
-        // Default constructor required for calls to DataSnapshot.getValue(Message.class)
     }
 
     public Message(String id, String content, String senderId, String senderName, String senderProfileImage, long timestamp) {
